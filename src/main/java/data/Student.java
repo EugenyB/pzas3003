@@ -1,10 +1,21 @@
 package data;
 
+import java.util.Objects;
+
 public class Student {
     private int id;
     private String name;
     private int year;
     private double rating;
+    private Gruppa group;
+
+    public Student(int id, String name, int year, double rating, Gruppa group) {
+        this.id = id;
+        this.name = name;
+        this.year = year;
+        this.rating = rating;
+        this.group = group;
+    }
 
     public Student(int id, String name, int year, double rating) {
         this.id = id;
@@ -45,6 +56,14 @@ public class Student {
         this.rating = rating;
     }
 
+    public Gruppa getGroup() {
+        return group;
+    }
+
+    public void setGroup(Gruppa group) {
+        this.group = group;
+    }
+
     @Override
     public String toString() {
         return "Student{" +
@@ -52,6 +71,20 @@ public class Student {
                 ", name='" + name + '\'' +
                 ", year=" + year +
                 ", rating=" + rating +
+                ", group=" + (group==null ? "no group" : group) +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Student)) return false;
+        Student student = (Student) o;
+        return id == student.id && year == student.year && Double.compare(student.rating, rating) == 0 && Objects.equals(name, student.name) && Objects.equals(group, student.group);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, year, rating, group);
     }
 }
